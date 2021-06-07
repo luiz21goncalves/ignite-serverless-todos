@@ -1,0 +1,23 @@
+service: ignite-todos
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  createTodos:
+    handler: src/functions/createTodos.handle
+    events:
+      - http: 
+          path: createTodos
+          method: POST
+          cors: true
