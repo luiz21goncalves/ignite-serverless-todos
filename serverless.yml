@@ -28,8 +28,15 @@ functions:
     handler: src/functions/createTodos.handle
     events:
       - http: 
-          path: createTodos/{userid}
+          path: todos/{userid}
           method: POST
+          cors: true
+  listUserTodos:
+    handler: src/functions/listUserTodos.handle
+    events:
+      - http: 
+          path: todos/{userid}
+          method: GET
           cors: true
 
 resources:
@@ -44,6 +51,10 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
+          - AttributeName: user_id
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+          - AttributeName: user_id
+            KeyType: RANGE
